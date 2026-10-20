@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Times Tables Practice</title>
+<link rel="manifest" href="manifest.json">
+<link rel="icon" href="icons/icon-192.png">
+<link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
+<meta name="theme-color" content="#3b6ef0">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div class="app">
+
+  <!-- SETUP SCREEN -->
+  <section id="screen-setup" class="screen active">
+    <h1>Times Tables Practice</h1>
+
+    <div class="card">
+      <h2>Which tables?</h2>
+      <div class="table-grid" id="table-grid"></div>
+      <div class="row">
+        <button type="button" class="btn-small" id="select-all">Select all</button>
+        <button type="button" class="btn-small" id="select-none">Clear</button>
+      </div>
+    </div>
+
+    <div class="card">
+      <h2>Mode</h2>
+      <div class="mode-choice">
+        <label class="mode-option">
+          <input type="radio" name="mode" value="practice" checked>
+          <div>
+            <strong>Practice</strong>
+            <p>Answer at your own pace, with feedback on each question.</p>
+          </div>
+        </label>
+        <label class="mode-option">
+          <input type="radio" name="mode" value="timed">
+          <div>
+            <strong>Timed Challenge</strong>
+            <p>Answer as many as you can before time runs out.</p>
+          </div>
+        </label>
+      </div>
+    </div>
+
+    <div class="card" id="practice-options">
+      <h2>How many questions?</h2>
+      <div class="choice-row" id="question-count-choice">
+        <label><input type="radio" name="qcount" value="10" checked> 10</label>
+        <label><input type="radio" name="qcount" value="20"> 20</label>
+        <label><input type="radio" name="qcount" value="0"> No limit</label>
+      </div>
+    </div>
+
+    <div class="card hidden" id="timed-options">
+      <h2>Time limit</h2>
+      <div class="choice-row" id="duration-choice">
+        <label><input type="radio" name="duration" value="30"> 30 sec</label>
+        <label><input type="radio" name="duration" value="60" checked> 60 sec</label>
+        <label><input type="radio" name="duration" value="120"> 2 min</label>
+      </div>
+    </div>
+
+    <button type="button" class="btn-primary" id="start-btn">Start</button>
+    <button type="button" class="btn-link" id="progress-btn">View progress</button>
+  </section>
+
+  <!-- GAME SCREEN -->
+  <section id="screen-game" class="screen">
+    <div class="game-top">
+      <div id="game-stat-left">Question 1</div>
+      <div id="game-stat-right">Score: 0</div>
+    </div>
+
+    <div class="question-box">
+      <div class="question" id="question-text">? × ? =</div>
+      <form id="answer-form" autocomplete="off">
+        <input type="number" id="answer-input" inputmode="numeric" autocomplete="off">
+      </form>
+      <div class="feedback" id="feedback"></div>
+    </div>
+
+    <div class="keypad" id="keypad"></div>
+
+    <button type="button" class="btn-primary" id="submit-btn">Submit</button>
+    <button type="button" class="btn-link" id="quit-btn">End session</button>
+  </section>
+
+  <!-- RESULTS SCREEN -->
+  <section id="screen-results" class="screen">
+    <h1>Results</h1>
+    <div class="card" id="results-summary"></div>
+    <div class="card">
+      <h2>Facts to practice more</h2>
+      <div id="weak-facts"></div>
+    </div>
+    <button type="button" class="btn-primary" id="again-btn">Try again</button>
+    <button type="button" class="btn-link" id="setup-btn">Change settings</button>
+  </section>
+
+  <!-- PROGRESS SCREEN -->
+  <section id="screen-progress" class="screen">
+    <h1>Your Progress</h1>
+    <div class="card" id="progress-summary"></div>
+    <div class="card">
+      <h2>All facts</h2>
+      <div id="progress-table"></div>
+    </div>
+    <button type="button" class="btn-primary" id="progress-back-btn">Back</button>
+    <button type="button" class="btn-link" id="reset-progress-btn">Reset progress</button>
+  </section>
+
+</div>
+
+<script src="app.js"></script>
+<script>
+  if ("serviceWorker" in navigator) {
+    window.addEventListener("load", () => {
+      navigator.serviceWorker.register("sw.js").catch(() => {});
+    });
+  }
+</script>
+</body>
+</html>
